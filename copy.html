@@ -10,16 +10,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css"/>
+    <!-- JavaScript files are attached -->
+    <script src="./js/index.js" defer></script>
+    <script src="./js/taskManager.js"></script>
     
-
     <title>Task Planner</title>
 </head>
 <body>
   <div class="container-fluid">
        <div class="header">
+
+        <!-- showing current date at top-left corner -->
+         <div style="float: left;"><span id="currentDate"></span></div>
          <a href="index.html"><h1>Task Planner</h1></a>
        </div>        
-
+          <!-- header ends -->
     
         <div class="card" style="width: 100%">
             <div class="card-body">
@@ -59,39 +64,42 @@
             <div class="col">
 
                 <!--form starts  -->
-                <form id="newTaskForm">
+                <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post"></form>
                     <div class="form-group">
-                        <label for="newTaskNameInput">Task Name</label>
-                        <input type="text" class="form-control" id="newTaskNameInput" >
+                        <label for="tname">Task Name</label>
+                        <input type="text" class="form-control" id="tname" >
+                        <span id="demo"></span>
                     </div>
                     <div class="form-group">
-                        <label for="newTaskDescription">Description</label>
-                        <textarea type="text" class="form-control" id="newTaskDescription"></textarea>
+                        <label for="Description">Description</label>
+                        <textarea type="text" class="form-control" id="Description"></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="newTaskAssignedTo">Assigned To</label>
-                            <input type="text" class="form-control" id="newTaskAssignedTo">
+                            <label for="AssignedTo">Assigned To</label>
+                            <input type="text" class="form-control" id="AssignedTo">
                         </div>
                         <div class="form-group col">
-                            <label for="newTaskDueDate">Due Date</label>
-                            <input type="date" class="form-control" id="newTaskDueDate">
+                            <label for="DueDate">Due Date</label>
+                            <input type="date" class="form-control" id="DueDate">
                         </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Example select</label>
-                      <select class="form-control" id="exampleFormControlSelect1">
+                      <label for="Stat">Example select</label>
+                      <select class="form-control" id="Stat">
+
                         <option value="">Select Status</option>
                         <option Value="new">New</option>
                         <option value="progress">InProgress</option>
                         <option value="done">Done</option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-warning btn-block">Add New Task</button>
+                    <button type="submit" id="submit" class="btn btn-warning">AddNew</button>  
                 </form>
                 
                  <!-- form ends here -->
+                 
 
 
 
@@ -111,54 +119,31 @@
          <!-- modal ends here -->
 
          <!-- Fetch To Do List here-->
-         <div class="list-group" id="toDo">
+         
+
+        <div class="list-group" id="toDo">
           <a href="#" class="list-group-item list-group-item-action active">
             To Do List
           </a>
-          <a href="#" class="list-group-item list-group-item-action">task</a>
-          <!-- dynamic card containing task information will be visible after clicking the task link -->
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Task Name</h6>
-              <p class="card-text">description:</p>
-              <p class="card-text">description</p>
-              <p class="card-text">Assigned to:</p>
-              <p>Assigned to</p>
-              <p>Date:</p>
-              <p>Date</p>
-            </div>
-          </div>
-          <!-- card ends -->
-        </div>
 
-        <div class="list-group" id="progress">
-          <a href="#" class="list-group-item list-group-item-action active">
-            In Progress List
-          </a>
-          <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item list-group-item-action">TaskNameLink</a>
               <!-- dynamic card containing task information will be visible after clicking the task link -->
               <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+                <div class="card-body" id = "display">
+                 <!--  
+                 <p id="taskHeading"><h6 class="card-subtitle mb-2 text-muted">TaskName</h6></p>
+                  <p id="description" class="card-text">Description</p>
+                  <p id= "assign" class="card-text">AssignedTo</a>
+                  <p id="det" class="card-text">Due Date</p>
+                -->
+                  <a href="#" class="card-link">Move to Progress</a>
                 </div>
               </div>
               <!-- card ends -->
           
         </div>
 
-        <div class="list-group" id="done">
-          <a href="#" class="list-group-item list-group-item-action active">
-            Done 
-          </a>
-          <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-          <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>
-        </div>
+       
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
