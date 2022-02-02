@@ -1,179 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Task List 2021</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <script src="./js/index.js" defer></script>
-    <script src="./js/taskManager.js" defer></script>
-    
-
-    <title>Task Planner</title>
+	<!-- bootstrap stylesheet added -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- my own stylesheet added -->
+	<link rel="stylesheet" href="main.css" />
 </head>
 <body>
-  <div class="container-fluid">
-       <div class="header">
-          <!-- showing current date at top-left corner -->
-          <div style="float: left;"><span id="currentDate"></span></div>
-                
-         <a href="index.html"><h1>Task Planner</h1></a>
-       </div>   
-       <!-- header ends -->     
+	
+	<header>
+		<div style="float:left;" id="showDate"></div>
+		<h1>Task Planner</h1>
+<!-- modal starts -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+	AddNew
+  </button>
+ 
+  <!-- Modal -->
+  <div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div  class="modal-dialog" role="document">
+	  <div style="background-color: rgb(26, 150, 172); color: white;" class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Add new task</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<!-- form starts -->
+<form id="new-task-form" class="form-group">
+	TaskName:<input
+	    class="form-control" 
+		type="text" 
+		name="new-task-input" 
+		id="new-task-input" 
+		min="5" max="100" pattern="[a-zA-Z0-9]+"  required/>
 
-    
-        <div class="card" style="width: 100%">
-            <div class="card-body">
-              <!--  
-              <img src="./images/logo.jpg" alt="task planner" width= 100% height=40%/>
-              -->
-              <p class="card-text">You can add new task edit them and remove them and forward to next level</p>
+		Description:<input 
+		class="form-control"
+		type="text" 
+		name="new-task-input" 
+		id="description" 
+		min="5" required />
 
-              <!-- Add New button  trigger modal -->
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">
-                Add New
-              </button>
-              
-              <a href="#toDo" class="btn btn-warning">To Do</a>
-              <a href="#progress" class="btn btn-warning">In Progress</a>
-              <a href="#done" class="btn btn-warning">Done</a>
-            </div>
-          </div>
+		AssignedTo:<input 
+		class="form-control"
+		type="text" 
+		name="new-task-input" 
+		id="assignedTo" 
+		min="5" required />
 
-    </div>
-      
-<!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="padding:5%; border:5px solid #1c1c3f;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle" style="color:rgb(241, 207, 10);">Add New Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+		Due Date:<input 
+		class="form-control"
+		type="date" 
+		name="new-task-input" 
+		id="dueDate" 
+	 required />
+		
+	 <label for="status">Select Status:</label>
+	 <select name="cars" id="status" form="new-task-form" name="status" class="form-control">
+	   <option value="ToDo">ToDo</option>
+	   <option value="InProgress">InProgress</option>
+	   <option value="Done">Done</option>
+	   
+	 </select>
 
+      </br>
 
-
-        <!-- add new task form starts here -->
-      <div class="modal-body">
-        
-   
-        <div class="row">
-            <div class="col">
-
-                <!--form starts  -->
-                <form id="newTaskForm">
-                    <div class="form-group">
-                        <label for="newTaskNameInput">Task Name</label>
-                        <input type="text" class="form-control" id="newTaskNameInput" pattern="[a-zA-Z0-9-]+" minlength="5" maxlength="50" required autocomplete="on">
-                    </div>
-                    
-                      
-                    
-                    <div class="form-group">
-                        <label for="newTaskDescription">Description</label>
-                        <textarea type="text" class="form-control" id="newTaskDescription" minlength="5" maxlength="1000"required></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="newTaskAssignedTo">Assigned To</label>
-                            <input type="text" class="form-control" id="newTaskAssignedTo" pattern="[a-zA-Z]+" minlength="5"maxlength="50" required>
-                        </div>
-                        <div class="form-group col">
-                            <label for="newTaskDueDate">Due Date</label>
-                            <input type="date" class="form-control" id="newTaskDueDate"  required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="status">Example select</label>
-                      <select class="form-control" id="status" required>
-                        <option value="">Select Status</option>
-                        <option Value="new">New</option>
-                        <option value="progress">InProgress</option>
-                        <option value="done">Done</option>
-                      </select>
-                    </div>
-                    <button type="submit" id="submit" class="btn btn-warning btn-block">Add New Task</button>
-                </form>
-                
-                 <!-- form ends here -->
-
-
-
-            </div>
-        </div>
-    </div>
-
- </div>
-       <!-- add new task form ends here -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-warning">Save</button>
-      </div>
-    </div>
+	<input 
+		type="submit"
+		id="new-task-submit" 
+		value="Add task" class="btn btn-warning"/>
+</form>
+<!-- form ends  -->
+		  ...
+		</div>
+		<div class="modal-footer">
+		  <button class="btn btn-warning" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button class="btn btn-warning" type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
   </div>
-</div>
-         <!-- modal ends here -->
+		
+<!-- modal ends -->
 
-         <!-- Fetch To Do List here-->
-         <div class="list-group" id="toDo">
-          <a href="#" class="list-group-item list-group-item-action active">
-            To Do List
-          </a>
-          <a href="#" class="list-group-item list-group-item-action">Tasks:</a>
-          <!-- dynamic card containing task information will be visible after clicking the task link -->
-          <div class="card" style="width: 18rem;">
-            <div class="card-body" id="display">
-            
-            </div>
-          </div>
-          <!-- card ends -->
-        </div>
 
-        <div class="list-group" id="progress">
-          <a href="#" class="list-group-item list-group-item-action active">
-            In Progress List
-          </a>
-          <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-              <!-- dynamic card containing task information will be visible after clicking the task link -->
-              <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
-              </div>
-              <!-- card ends -->
-          
-        </div>
 
-        <div class="list-group" id="done">
-          <a href="#" class="list-group-item list-group-item-action active">
-            Done 
-          </a>
-          <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-          <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>
-        </div>
-         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
-         
-         
-         
-         <footer> </footer>
+	</header>
+	<main>
+		<section class="task-list">
+			<h2>Tasks</h2>
 
-  </div>    
+			<div id="tasks">
+<!--  
+				 <div class="task">
+					<div class="content">
+						<input 
+							type="text" 
+							class="text" 
+							value="A new task"
+							readonly>
+					</div>
+					<div class="actions">
+						<button class="edit">Edit</button>
+						<button class="delete">Delete</button>
+					</div>
+				</div> 
+-->
+
+			</div>
+		</section>
+	</main>
+
+	<script src="main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
